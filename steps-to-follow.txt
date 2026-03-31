@@ -1,0 +1,68 @@
+Step 1: Setup project
+    - init Node projekt
+    - install:
+        - express
+        - typescript
+        - ts-node / nodemon
+    - lav tsconfig.json
+    Mål: server kan starte
+
+Step 2: Minimal server
+    - lav app.ts
+    - lav én route:
+        GET /hello
+    test i browser / Postman
+    Dette burde resultere i en kørende backend
+
+Step 3: Tilføj database
+    - vælg SQLite (da det er simpelt)
+    - opret db.ts
+    - opret en users tabel
+    Mål: vi kan gemme en bruger
+
+Step 4: Register endpoint (POST /register)
+    Implementér:
+    - modtag email + password
+    - hash password
+    - gem bruger i db
+    Her bruger vi:
+    - controller
+    - service
+    - utils (hash)
+
+Step 5: Login endpoint (POST /login)
+    Implementér:
+    - find bruger i db
+    - sammenlign password
+    - returnér success/failure
+
+Step 6: JWT token
+    Når login virker:
+    - generér JWT
+    - send det tilbage
+    gem i utils/jwt.ts
+
+Step 7: Protected route (GET /me)
+    - kræver token
+    - middleware checker token
+    - returnér brugerdata
+    Nu er det et "rigtigt" auth system
+
+Step 8: Cleanup
+    - strukturér kode pænt
+    - basic error handling
+    - README på GitHub
+
+Bonus: Mental model
+    Tænk:
+        Route -> Controller -> Service -> DB/Utils
+    Hvis vi sidder fast:
+        - spørg: "hvilket lag er jeg i?"
+
+Hvilke kriterier skal imødekommes for at være "færdig"?
+    Når vi kan:
+        - oprette en bruger
+        - logge ind
+        - få token
+        - kalde /me med token
+    Når dette er opnået har vi et rigtigt backend-projekt
