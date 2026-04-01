@@ -1,18 +1,47 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <h1>JWT Test</h1>
 <script>
-const token = "<din_token_fra_login>";
+const API_URL = 'http://localhost:3000';
 
-fetch('http://localhost:3000/profile', {
-  method: 'GET',
-  headers: {
-    'Authorization': `Bearer ${token}`
-  }
-})
-.then(res => res.json())
-.then(data => console.log(data))
-.catch(err => console.error(err));
+async function testJWTFlow() {
+    const username = 'testuser';
+    const password = '123456';
+
+    try {
+        // register
+        const registerRes = await fetch(`${API_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        })
+        console.log('Register response:', await registerRes.json());
+
+        // login
+        const loginRes = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application(json)' },
+            body: JSON.stringify({ username, password })
+        })
+        const loginData = await loginRes.json()
+        console.log('Login response:', loginData)
+
+        const token = loginData.token
+
+        // call protected route
+        const profileRes = await fetch(`${API_URL}/profile`, {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        const profileData = await profileRes.json()
+        console.log('Protected route response', profileData)
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+testJWTFlow()
 </script>
 </body>
 </html>
