@@ -23,6 +23,7 @@ export const authController = {
         const { username, password } = req.body
 
         try {
+            const { username, password } = req.body
             const result = await loginUser(username, password)
             res.status(201).json(result)
         } catch (err: any) {
