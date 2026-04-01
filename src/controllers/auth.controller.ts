@@ -6,6 +6,7 @@
 import { Request, Response } from 'express'
 import { registerUser, loginUser } from '../services/auth.service'
 
+// er authController et objekt bestående af to promise requests som når de resolver returnerer to objekter i authController objektet?
 export const authController = {
     async register(req: Request, res: Response) {
         const { username, password } = req.body

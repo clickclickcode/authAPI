@@ -12,9 +12,11 @@
 import { Router } from 'express'
 import { authController } from '../controllers/auth.controller'
 
-
+// initialiserer en Router som eksporteres til app.ts (som authRoutes)
 const router = Router()
 
+// er router et objekt der påtager sig de nedenstående .post requests, og eksporterer vi på den måde de to requests til app.ts??
+// eller er dette bare en definition af vores endpoints?
 router.post('/register', authController.register)
 router.post('/login', authController.login)
 
