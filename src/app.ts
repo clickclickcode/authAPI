@@ -4,11 +4,17 @@
 
 import express, { Request, Response } from 'express'
 import authRoutes from './routes/auth.routes'
-import { authMiddleware } from './middleware/auth.middleware' 
+import { authMiddleware } from './middleware/auth.middleware'
+import cors from 'cors'
 
 const app = express()
 
 // middleware
+
+app.use(cors({
+    origin: 'http://127.0.0.1:5500', // eller 'http://localhost:5500'
+    credentials: true // hvis du bruger cookies senere
+}))
 
 // dette er et globalt middleware som bruges i hele applikationen, derfor giver det mening at have denne i app.ts og ikke auth.middleware.ts
 app.use(express.json()) 
