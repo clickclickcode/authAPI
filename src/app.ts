@@ -11,13 +11,15 @@ const app = express()
 
 // middleware
 
+// dette er et globalt middleware som bruges i hele applikationen, derfor giver det mening at have denne i app.ts og ikke auth.middleware.ts
+// Vigtigt! Dette skal være den første linje da den tillader at der parses JSON. Hvis ikke denne er først, så vil req.body være 'undefined' hvilket giver en error
+app.use(express.json()) 
+
 app.use(cors({
     origin: 'http://127.0.0.1:5500', // eller 'http://localhost:5500'
     credentials: true // hvis du bruger cookies senere
 }))
 
-// dette er et globalt middleware som bruges i hele applikationen, derfor giver det mening at have denne i app.ts og ikke auth.middleware.ts
-app.use(express.json()) 
 app.use('/auth', authRoutes)
 
 // en protected route som kræver token

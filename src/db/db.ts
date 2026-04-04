@@ -20,7 +20,7 @@ export async function getDb() {
     await db.run(`
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            usename TEXT UNIQUE,
+            username TEXT UNIQUE,
             password TEXT
         )
     `)

@@ -21,14 +21,30 @@ export async function registerUser(username: string, password: string) {
     // vi kalder vores hjælperfunktion der hash'er vores password
     const hashedPassword = await hashPassword(password)
 
-    // tilføj en bruger til databasen?
-    await db.run(
-        'INSERT INTO users (username, password) VALUES (?, ?)',
-        username,
-        hashedPassword
-    )
+    try {
+        await db.run(
+            'INSERT INTO users (username, password) VALUES (?, ?)',
+            username,
+            hashedPassword
+        )
 
-    return { success: true }
+        return { success: true }
+
+    } catch (err: any) {
+        if (err.message.includes('UNIQUE')) {
+            throw new Error('User already exists, motherfucker')
+        }
+        throw err
+    }
+
+    // tilføj en bruger til databasen?
+    //await db.run(
+    //    'INSERT INTO users (username, password) VALUES (?, ?)',
+    //    username,
+    //    hashedPassword
+    //)
+
+    // return { success: true }
 }
 
 export async function loginUser(username: string, password: string) {
